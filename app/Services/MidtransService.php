@@ -7,7 +7,6 @@ use Midtrans\Snap;
 use Midtrans\Config;
 use Midtrans\Notification;
 use App\Models\Transaction;
-use Illuminate\Support\Facades\DB;
 
 class MidtransService
 {
@@ -30,15 +29,17 @@ class MidtransService
 
         try
         {
-            $paymentUrl = Snap::createTransaction($midtrans)->redirect_url;
-
-            DB::commit();
-
-            return redirect($paymentUrl);
+            return [
+                'status' => true,
+                'url' => Snap::createTransaction($midtrans)->redirect_url
+            ];
         }
         catch (Exception $error)
         {
-            return $error->getMessage();
+            return [
+                'status' => false,
+                'error' => $error
+            ];
         }
     }
 

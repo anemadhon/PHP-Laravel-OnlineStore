@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Services\CartService;
 use App\Services\MidtransService;
+use Illuminate\Support\Facades\DB;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\Validator;
 
@@ -43,14 +44,46 @@ class TransactionController extends Controller
         ]);
 
         if ($validated->fails()) 
-            return redirect()->back()->withErrors($validated);
+            return back()->withErrors($validated);
         
         $dataValidated = $validated->validated();
 
-        return (new TransactionService())->checkout([
-            'validated' => $dataValidated,
-            'carts' => $carts
-        ]);
+        DB::beginTransaction();
+        
+        try
+        {
+            $transaction = (new TransactionService())->checkout([
+                'validated' => $dataValidated,
+                'carts' => $carts
+            ]);
+
+            $payment = (new MidtransService())->createTransaction([
+                'order_id' => $transaction->unique_number,
+                'gross_amount' => $dataValidated['total_price'],
+                'user_name' => auth()->user()->name,
+                'user_email' => auth()->user()->email
+            ]);
+
+            if ($payment['status'])
+            {
+                DB::commit();
+                
+                return redirect($payment['url']);
+            }
+            
+            if (!$payment['status'])
+            {
+                DB::rollback();
+
+                return back()->withErrors($payment['error']);
+            }
+        }
+        catch (\Exception $error)
+        {
+            DB::rollback();
+
+            return $error->getMessage();
+        }
     }
 
     /**
