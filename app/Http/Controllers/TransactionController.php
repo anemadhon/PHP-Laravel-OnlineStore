@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Exception;
-use Midtrans\Snap;
-use App\Models\Cart;
 use App\Models\User;
-use Midtrans\Config;
-use Midtrans\Notification;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Services\CartService;
-use App\Models\TransactionDetail;
 use App\Services\MidtransService;
-use Illuminate\Support\Facades\DB;
 use App\Services\TransactionService;
 use Illuminate\Support\Facades\Validator;
 

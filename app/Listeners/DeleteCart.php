@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Models\Cart;
 use App\Events\Transaction;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class DeleteCart
 {
