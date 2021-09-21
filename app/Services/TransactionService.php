@@ -48,7 +48,9 @@ class TransactionService
 
             return (new MidtransService())->createTransaction([
                 'order_id' => $transaction->unique_number,
-                'gross_amount' => $data['validated']['total_price']
+                'gross_amount' => $data['validated']['total_price'],
+                'user_name' => auth()->user()->name,
+                'user_email' => auth()->user()->email
             ]);
         } 
         catch (Exception $error)

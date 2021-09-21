@@ -69,7 +69,15 @@ class TransactionController extends Controller
     public function show(User $user, Transaction $transaction)
     {
         return view('transaction.show', [
-            'user_address' => (new CartService())->createAddressFormat($user),
+            'user_address' => (new CartService())->createAddressFormat([
+                'address_one' => $user->address_one,
+                'address_two' => $user->address_two,
+                'provincy' => $user->provincy,
+                'regency' => $user->regency,
+                'zip_code' => $user->zip_code,
+                'country' => $user->country,
+                'phone_number' => $user->phone_number
+            ]),
             'transaction' => $transaction->load('details')
         ]);
     }

@@ -21,8 +21,8 @@ class MidtransService
                 'gross_amount' => (int) $data['gross_amount'],
             ],
             'customer_details' => [
-                'first_name'    => auth()->user()->name,
-                'email'         => auth()->user()->email,
+                'first_name'    => $data['user_name'],
+                'email'         => $data['user_email'],
             ],
             'enabled_payments' => ['gopay','bank_transfer'],
             'vtweb' => []

@@ -6,19 +6,19 @@ use App\Models\Cart;
 
 class CartService
 {
-    public function createAddressFormat(object $userLogin)
+    public function createAddressFormat(array $user)
     {
         $notComplated = (
-            !$userLogin->address_one || 
-            !$userLogin->address_two || 
-            !$userLogin->provincy ||
-            !$userLogin->regency ||
-            !$userLogin->zip_code ||
-            !$userLogin->country ||
-            !$userLogin->phone_number
+            !$user['address_one'] || 
+            !$user['address_two'] || 
+            !$user['provincy'] ||
+            !$user['regency'] ||
+            !$user['zip_code'] ||
+            !$user['country'] ||
+            !$user['phone_number']
         );
 
-        return $notComplated ? '-' : $userLogin->address_one.' ( secondary address: '.$userLogin->address_two .'), '.$userLogin->regency.', '.$userLogin->provincy.', '.$userLogin->zip_code.', '.$userLogin->country;
+        return $notComplated ? '-' : $user['address_one'].' ( secondary address: '.$user['address_two'] .'), '.$user['regency'].', '.$user['provincy'].', '.$user['zip_code'].', '.$user['country'];
     }
 
     public function updateOrCreateCart(array $data)

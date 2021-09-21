@@ -11,12 +11,15 @@ class DashboardController extends Controller
     {
         $transactions = auth()->user()->transactions;
 
-        $stores = (new UserDashboard())->getStoreStatistic(auth()->user());
+        $stores = (new UserDashboard())->getStoreStatistic([
+            'has_store' => auth()->user()->has_store,
+            'store_id' => auth()->user()->store->id,
+        ]);
 
         return view('user.dashboard', [
             'last_transaction' => $transactions->last(),
-            'favorite_category' => (new UserDashboard())->getFavoriteCategory($transactions),
-            'favorite_store' => (new UserDashboard())->getFavoriteStore($transactions),
+            'favorite_category' => (new UserDashboard())->getFavoriteCategory($transactions->pluck('id')->all()),
+            'favorite_store' => (new UserDashboard())->getFavoriteStore($transactions->pluck('id')->all()),
             'store_revenue' => $stores['revenue'],
             'store_active_customer' => $stores['active_customer']
         ]);

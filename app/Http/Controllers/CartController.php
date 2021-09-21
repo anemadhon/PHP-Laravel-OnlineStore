@@ -21,7 +21,15 @@ class CartController extends Controller
 
         return view('cart', [
             'carts' => $carts,
-            'user_address' => (new CartService())->createAddressFormat(auth()->user())
+            'user_address' => (new CartService())->createAddressFormat([
+                'address_one' => auth()->user()->address_one,
+                'address_two' => auth()->user()->address_two,
+                'provincy' => auth()->user()->provincy,
+                'regency' => auth()->user()->regency,
+                'zip_code' => auth()->user()->zip_code,
+                'country' => auth()->user()->country,
+                'phone_number' => auth()->user()->phone_number
+            ])
         ]);
     }
 
