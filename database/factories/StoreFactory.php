@@ -28,7 +28,7 @@ class StoreFactory extends Factory
             'name' => $name,
             'slug' => Str::slug($name),
             'status' => 'on',
-            'user_id' => $this->faker->numberBetween(1,4),
+            'user_id' => 2,
             'category_id' => $this->faker->numberBetween(1,3)
         ];
     }
