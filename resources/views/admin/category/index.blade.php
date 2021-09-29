@@ -79,7 +79,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-center">
                                             <a href="{{ route('admin.categories.edit', $category) }}"><span class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-indigo-100 text-indigo-600 hover:text-indigo-900">Edit</span></a>
                                             <form class="inline-block" action="{{ route('admin.categories.destroy', $category) }}" method="POST" onsubmit="return confirm('Are you sure?');">
-                                                {!! method_field('delete') . csrf_field() !!}
+                                                        
                                                 <input type="submit" class="px-2 mr-2 inline-flex text-xs leading-5 font-semibold rounded-full text-red-600 hover:text-red-900 cursor-pointer" value="Delete">
                                             </form>
                                         </td>

@@ -39,7 +39,7 @@ class TransactionController extends Controller
 
         $validated = Validator::make($request->all(), [
             'inscurance_price' => "required|integer",
-            'shipping_price' => "required|integer|",
+            'shipping_price' => "required|integer",
             'total_price' => "required|integer|size:$max"
         ]);
 
