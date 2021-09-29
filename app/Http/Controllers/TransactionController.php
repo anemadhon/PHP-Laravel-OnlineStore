@@ -53,6 +53,7 @@ class TransactionController extends Controller
         try
         {
             $transaction = (new TransactionService())->checkout([
+                'user_id' => auth()->id(),
                 'validated' => $dataValidated,
                 'carts' => $carts
             ]);

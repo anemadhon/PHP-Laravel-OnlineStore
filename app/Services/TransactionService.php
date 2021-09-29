@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use App\Events\Transaction as EventsTransaction;
 
@@ -9,7 +10,8 @@ class TransactionService
 {
     public function checkout(array $data)
     {
-        $transaction = auth()->user()->transactions()->create([
+        $transaction = Transaction::create([
+            'user_id' => $data['user_id'],
             'unique_number' => self::createUniqueNumber('STORE'),
             'status' => 'PENDING',
             'inscurance_price' => (int) $data['validated']['inscurance_price'],
