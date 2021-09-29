@@ -56,6 +56,7 @@ class CartController extends Controller
             return redirect()->back()->withErrors($validated);
 
         (new CartService())->updateOrCreateCart([
+            'user_id' => auth()->id(),
             'product_id' => $product->id,
             'purchase_quantity' => $validated->validated()['purchase_quantity']
         ]);
