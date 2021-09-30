@@ -23,14 +23,14 @@ class CartService
 
     public function updateOrCreateCart(array $data)
     {
-        if (!self::getProduct($data['product_id']))
-        {
-            self::storeCart($data);
-        }
-
         if (self::getProduct($data['product_id']))
         {
             self::updateCart($data);
+        }
+
+        if (!self::getProduct($data['product_id']))
+        {
+            self::storeCart($data);
         }
     }
 
@@ -41,11 +41,15 @@ class CartService
         $cart->purchase_quantity = $cart->purchase_quantity + $data['purchase_quantity'];
 
         $cart->save();
+
+        return;
     }
 
     private static function storeCart(array $data)
     {
         Cart::create($data);
+
+        return;
     }
 
     private static function getProduct(int $id)
