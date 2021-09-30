@@ -29,7 +29,7 @@
     @endif
     
     @if (auth()->user()->role !== 'ADMIN' && auth()->user()->has_store === 0)
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 {{ (auth()->user()->role !== 'ADMIN' && $notComplated) ? '' : 'pt-3' }}">
             <div class="bg-white overflow-hidden shadow-sm rounded-lg">
                 <div class="p-1 mx-4 bg-white border-b border-gray-200">
                     hi, {{ auth()->user()->name }}. Do you want to open a store ? Open <span class="text-indigo-600 hover:text-indigo-900 underline"><a href="{{ route('dashboard.stores.create') }}" class="underline">here</a></span>
