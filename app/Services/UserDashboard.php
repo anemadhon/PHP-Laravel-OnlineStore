@@ -16,7 +16,7 @@ class UserDashboard
         {
             $transactionDetailsProduct = TransactionDetail::selectRaw('count(product_id) as fav_product, product_id')->whereIn('transaction_id', $transactions_id)->groupBy('product_id')->orderByDesc('fav_product');
         
-            return Product::with('category.name')->find($transactionDetailsProduct->pluck('product_id')->first());
+            return Product::with('category')->find($transactionDetailsProduct->pluck('product_id')->first());
         }
     
         return null;
