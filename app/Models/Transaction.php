@@ -25,9 +25,4 @@ class Transaction extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
-
-    public function categories()
-    {
-        return $this->hasManyThrough(TransactionDetail::class, Product::class);
-    }
 }

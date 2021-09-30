@@ -36,6 +36,11 @@ class Product extends Model
     {
         return $this->hasMany(TransactionDetail::class);
     }
+    
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
 
     /**
      * Return the sluggable configuration array for this model.

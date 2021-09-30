@@ -18,6 +18,11 @@ class TransactionDetail extends Model
 
     protected $casts = ['total_each_product'];
 
+    public function getTotalEachProductAttribute()
+    {
+        return $this->purchase_price * $this->purchase_quantity;
+    }
+
     public function transaction()
     {
         return $this->belongsTo(Transaction::class);
@@ -31,10 +36,5 @@ class TransactionDetail extends Model
     public function stores()
     {
         return $this->belongsTo(Store::class, 'store_id');
-    }
-
-    public function getTotalEachProductAttribute()
-    {
-        return $this->purchase_price * $this->purchase_quantity;
     }
 }
