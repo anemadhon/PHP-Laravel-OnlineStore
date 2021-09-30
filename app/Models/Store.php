@@ -30,6 +30,11 @@ class Store extends Model
     {
         return $this->hasMany(Product::class);
     }
+    
+    public function details()
+    {
+        return $this->hasMany(TransactionDetail::class);
+    }
 
     /**
      * Return the sluggable configuration array for this model.

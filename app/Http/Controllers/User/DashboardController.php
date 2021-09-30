@@ -13,7 +13,7 @@ class DashboardController extends Controller
 
         $stores = (new UserDashboard())->getStoreStatistic([
             'has_store' => auth()->user()->has_store,
-            'store_id' => auth()->user()->store->id,
+            'store' => auth()->user()->has_store ? auth()->user()->store : null
         ]);
 
         return view('user.dashboard', [

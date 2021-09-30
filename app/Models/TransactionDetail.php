@@ -28,12 +28,12 @@ class TransactionDetail extends Model
         return $this->belongsTo(Transaction::class);
     }
 
-    public function products()
+    public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
     
-    public function stores()
+    public function store()
     {
         return $this->belongsTo(Store::class, 'store_id');
     }

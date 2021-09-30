@@ -28,6 +28,7 @@ class TransactionService
                 'shipping_status' => 'PENDING',
                 'purchase_price' => $cart->product->price,
                 'purchase_quantity' => $cart->purchase_quantity,
+                'total_each_product' => ($cart->product->price * $cart->purchase_quantity),
                 'unique_number' => self::createUniqueNumber('TRX-'.($index + 1)),
                 'transaction_id' => $transaction->id,
                 'product_id' => $cart->product->id,

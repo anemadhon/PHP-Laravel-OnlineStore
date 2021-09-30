@@ -7,7 +7,6 @@ use App\Models\Store;
 use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
-use Illuminate\Support\Facades\DB;
 
 class UserDashboard
 {
@@ -17,7 +16,7 @@ class UserDashboard
         {
             $transactionDetailsProduct = TransactionDetail::selectRaw('count(product_id) as fav_product, product_id')->whereIn('transaction_id', $transactions_id)->groupBy('product_id')->orderByDesc('fav_product');
         
-            return Product::with('category')->find($transactionDetailsProduct->pluck('product_id')->first());
+            return Product::with('category.name')->find($transactionDetailsProduct->pluck('product_id')->first());
         }
     
         return null;
@@ -39,16 +38,13 @@ class UserDashboard
     {
         if ($user['has_store'])
         {
-            $store = TransactionDetail::with('stores')
-                                ->whereHas('stores', fn($query) => 
-                                    $query->where('store_id', $user['store_id'])
-                                );
+            $store = $user['store']->load('details')->loadSum('details as revenue', 'total_each_product');
             
-            $transactionOwner = Transaction::selectRaw('count(user_id) as fav_customer, user_id')->whereIn('id', $store->pluck('transaction_id')->all())->groupBy('user_id')->orderByDesc('fav_customer');
-
+            $transactionOwner = Transaction::selectRaw('count(user_id) as fav_customer, user_id')->whereIn('id', $store->details->pluck('transaction_id')->all())->groupBy('user_id')->orderByDesc('fav_customer');
+            
             return [
-                'revenue' => $store->value(DB::raw('SUM(purchase_price * purchase_quantity)')),
-                'active_customer' => User::select('name')->where('id', $transactionOwner->pluck('user_id')->first())->first()
+                'revenue' => $store->revenue,
+                'active_customer' => User::select('name')->find($transactionOwner->pluck('user_id')->first())
             ];
         }
 
