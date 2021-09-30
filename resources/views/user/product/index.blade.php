@@ -55,7 +55,7 @@
                     <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
                         <div class="block relative h-48 rounded overflow-hidden">
                             <a href="{{ route('dashboard.products.show', $product) }}">
-                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ $product->galleries->count() > 0 ? asset('storage/'.$product->galleries->last()->image) : 'https://dummyimage.com/420x260' }}">
+                                <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ $product->galleries->count() > 0 ? asset('storage/'.$product->galleries->last()->image) : 'https://ui-avatars.com/api/?name='.urlencode($product->name).'&color=AEAEAE&background=808080' }}">
                             </a>
                         </div>
                         <div class="mt-4">

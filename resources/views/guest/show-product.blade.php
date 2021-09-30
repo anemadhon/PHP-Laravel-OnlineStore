@@ -3,7 +3,7 @@
     <div class="container py-3 mx-auto px-4 sm:px-6 lg:px-8">
         <div class="lg:w-4/5 mx-auto flex flex-wrap">
             
-            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="{{ $product->galleries->count() > 0 ? asset('storage/'.$product->galleries->last()->image) : 'https://dummyimage.com/420x260' }}">
+            <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="{{ $product->galleries->count() > 0 ? asset('storage/'.$product->galleries->last()->image) : 'https://ui-avatars.com/api/?name='.urlencode($product->name).'&color=AEAEAE&background=808080' }}">
             
             <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                 <h2 class="text-sm title-font text-gray-500 tracking-widest">{{ $product->category->name }}</h2>
